@@ -1,0 +1,45 @@
+{
+  "name": "@tnezdev/kreate",
+  "version": "0.0.0-development",
+  "keywords": [
+    "starter",
+    "template",
+    "cli",
+    "nodejs"
+  ],
+  "description": "A CLI to bootstrap @tnez projects from templates.",
+  "author": "Travis Nesland <travis@tnez.dev>",
+  "license": "MIT",
+  "bin": {
+    "@tnezdev/kreate": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "check:smells": "eslint . --ext=\".ts,.js\"",
+    "check:types": "tsc --noEmit",
+    "dev": "ncc build ./index.ts -w -o dist/",
+    "prebuild": "rimraf ./dist/",
+    "build": "ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register"
+  },
+  "devDependencies": {
+    "@types/degit": "2.8.3",
+    "@types/node": "17.0.32",
+    "@typescript-eslint/eslint-plugin": "5.23.0",
+    "@typescript-eslint/parser": "5.23.0",
+    "@vercel/ncc": "0.33.4",
+    "commander": "9.2.0",
+    "degit": "2.8.4",
+    "eslint": "8.15.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-config-xo": "0.40.0",
+    "eslint-config-xo-typescript": "0.50.0",
+    "prettier": "2.6.2",
+    "rimraf": "3.0.2",
+    "typescript": "4.6.4"
+  }
+}
