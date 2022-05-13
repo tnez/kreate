@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "moduleResolution": "node",
-    "strict": true,
-    "resolveJsonModule": true,
+    "target": "ES2015",
+    "module": "commonjs",
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true
   },
   "exclude": ["dist", "node_modules", "templates"]
 }

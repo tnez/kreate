@@ -1,6 +1,6 @@
 {
   "name": "@tnezdev/kreate",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "keywords": [
     "starter",
     "template",
@@ -10,9 +10,12 @@
   "description": "A CLI to bootstrap @tnez projects from templates.",
   "author": "Travis Nesland <travis@tnez.dev>",
   "license": "MIT",
-  "bin": {
-    "@tnezdev/kreate": "./dist/index.js"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tnez/kreate"
   },
+  "main": "./dist/index.js",
+  "bin": "./dist/index.js",
   "files": [
     "dist"
   ],
@@ -24,7 +27,7 @@
     "check:types": "tsc --noEmit",
     "dev": "ncc build ./index.ts -w -o dist/",
     "prebuild": "rimraf ./dist/",
-    "build": "ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register"
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/degit": "2.8.3",
