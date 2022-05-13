@@ -10,30 +10,69 @@ jobs:
       matrix:
         version: [14, 16]
         os: [ubuntu-latest, windows-latest]
+
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: ✋ Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️  Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 🏗️ Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.version }}
-      - run: npm ci
-      - run: npm run check:smells
-      - run: npm run check:types
-      - run: npm run build
+
+      - name: 🏗️ Download Dependencies
+        run: npm ci
+
+      - name: ✅ Running Checks
+        run: |
+          npm run check:smells
+          npm run check:types
+
+      - name: 🛠️ Build
+        run: npm run build
 
   publish:
     needs: [checks]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: ✋ Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️  Checkout Repo
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+
+      - name: 🏗️ Setup Node
+        uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
-      - run: npm run build
-      - uses: mikeal/merge-release@master
+
+      - name: 🏗️ Download Dependencies
+        run: npm ci
+
+      - name: 🛠️ Build
+        run: npm run build
+
+      - name: 🚢 Release
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          semantic_version: 16
+          branches: |
+            [
+              '+([0-9])?(.{+([0-9]),x}).x',
+              'main',
+              'next',
+              'next-major',
+              {name: 'beta', prerelease: true},
+              {name: 'alpha', prerelease: true}
+            ]
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
