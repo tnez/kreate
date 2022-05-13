@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { program, Option } from 'commander'
 import degit from 'degit'
 import packageInfo from './package.json'
